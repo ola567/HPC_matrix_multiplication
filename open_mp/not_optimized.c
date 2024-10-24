@@ -40,14 +40,14 @@ void read_matrices_from_file(const char* filename, int*** A, int*** B, int* rows
 }
 
 int** allocate_result_matrix(int rowsA, int colsB) {
-    int **C = (int**) malloc(rowsA * sizeof(int*));
+    int **C = (int**)malloc(rowsA * sizeof(int*));
     if (C == NULL) {
         printf("Result matrix memory allocation error\n");
         exit(1);
     }
     
     for (int i = 0; i < rowsA; i++) {
-        C[i] = (int*) malloc(colsB * sizeof(int));
+        C[i] = (int*)calloc(colsB, sizeof(int));
         if (C[i] == NULL) {
             printf("Result matrix memory allocation error\n");
             exit(1);
@@ -70,9 +70,6 @@ int main(int argc, char **argv) {
     int rowsA, colsA, rowsB, colsB;
     long long threads_nr = 10;
 
-    // set number of threads
-    omp_set_num_threads(threads_nr);
-
     // get input data
     read_matrices_from_file("../matrixes.txt", &A, &B, &rowsA, &colsA, &rowsB, &colsB);
     print_matrix(A, rowsA, colsA);
@@ -80,22 +77,31 @@ int main(int argc, char **argv) {
     // allocate memory for result data
     C = allocate_result_matrix(rowsA, colsB);
 
+    // set number of threads
+    omp_set_num_threads(rowsA * colsB);
+
     struct timeval ins__tstart, ins__tstop;
     gettimeofday(&ins__tstart, NULL);
     
     // perform computations
-    // #pragma omp parallel for private(if_prime) reduction(+:prime_numbers)
-    // for(int i = 0; i < inputArgument; i++) {
-    //     if_prime = check_prime(numbers[i]);
-    //     prime_numbers += if_prime;
-    // }
+    #pragma omp parallel
+    {
+        long int thread_id = omp_get_thread_num();
+        long int row_number = thread_id / colsB;
+        long int col_number = thread_id % colsB;
+        for (long int i = 0; i < colsA; i++) {
+            C[row_number][col_number] += A[row_number][i] * B[i][col_number];
+        }
+    }
         
     // synchronize/finalize computations
     gettimeofday(&ins__tstop, NULL);
-    ins__printtime(&ins__tstart, &ins__tstop);
 
     // print rezult matrix
     print_matrix(C, rowsA, colsB);
+
+    // print execution time
+    ins__printtime(&ins__tstart, &ins__tstop);
 
     // free memory
     for (int i = 0; i < rowsA; i++) {free(A[i]);}
