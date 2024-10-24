@@ -1,15 +1,17 @@
-#ifndef _UTILITY_H_
-#define _UTILITY_H_
+#ifndef UTILITY_H
+#define UTILITY_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
 
-void ins__printtime(struct timeval *start, struct timeval *stop) {
 
-  long time=1000000*(stop->tv_sec-start->tv_sec)+stop->tv_usec-start->tv_usec;
-  printf("Execution time = %ld microseconds\n", time);
-  return;
-}
+void generate_matrix(int** matrix, int rows, int cols);
+int** allocate_matrix(int rowsA, int colsB);
+void free_matrix(int** matrix, int rows);
+void print_matrix(int** matrix, int rows, int cols);
+void read_matrices_from_file(const char* filename, int*** A, int*** B, int* rowsA, int* colsA, int* rowsB, int* colsB);
+void print_time(struct timeval *start, struct timeval *stop);
+
 #endif
