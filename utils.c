@@ -42,6 +42,32 @@ void print_matrix(int** matrix, int rows, int cols) {
     }
 }
 
+void save_matrices_to_file(const char* filename, int** A, int rowsA, int colsA, int** B, int rowsB, int colsB) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Cannot open the file\n");
+        exit(1);
+    }
+
+    fprintf(file, "%d %d\n", rowsA, colsA);
+    for (int i = 0; i < rowsA; i++) {
+        for (int j = 0; j < colsA; j++) {
+            fprintf(file, "%d ", A[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+
+    fprintf(file, "%d %d\n", rowsB, colsB);
+    for (int i = 0; i < rowsB; i++) {
+        for (int j = 0; j < colsB; j++) {
+            fprintf(file, "%d ", B[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
+}
+
 void read_matrices_from_file(const char* filename, int*** A, int*** B, int* rowsA, int* colsA, int* rowsB, int* colsB) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
