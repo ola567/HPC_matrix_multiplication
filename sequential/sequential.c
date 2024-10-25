@@ -8,7 +8,6 @@
 int main(int argc, char **argv) {
     int **A, **B, **C;
     int rowsA, colsA, rowsB, colsB;
-    long long threads_nr = 10;
     srand(time(NULL));
 
     // generate matrixes
