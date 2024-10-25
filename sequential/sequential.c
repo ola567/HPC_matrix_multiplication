@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     gettimeofday(&ins__tstop, NULL);
 
     // print rezult matrix
-    print_matrix(C, rowsA, colsB);
+    // print_matrix(C, rowsA, colsB);
 
     // print execution time
     print_time(&ins__tstart, &ins__tstop);

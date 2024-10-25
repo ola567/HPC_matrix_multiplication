@@ -9,7 +9,6 @@
 int main(int argc, char **argv) {
     int **A, **B, **C;
     int rowsA, colsA, rowsB, colsB;
-    long long threads_nr = 10;
     srand(time(NULL));
 
     // get input data
@@ -19,7 +18,7 @@ int main(int argc, char **argv) {
     C = allocate_matrix(rowsA, colsB);
 
     // set number of threads
-    omp_set_num_threads(rowsA * colsB);
+    // omp_set_num_threads(rowsA * colsB);
 
     struct timeval ins__tstart, ins__tstop;
     gettimeofday(&ins__tstart, NULL);
@@ -27,11 +26,12 @@ int main(int argc, char **argv) {
     // perform computations
     #pragma omp parallel
     {
-        long int thread_id = omp_get_thread_num();
-        long int row_number = thread_id / colsB;
-        long int col_number = thread_id % colsB;
-        for (long int i = 0; i < colsA; i++) {
-            C[row_number][col_number] += A[row_number][i] * B[i][col_number];
+        for (int row_number = 0; row_number < rowsA; row_number++) {
+            for (int col_number = 0; col_number < colsB; col_number++) {
+                for (int i = 0; i < colsA; i++) {
+                    C[row_number][col_number] += A[row_number][i] * B[i][col_number];
+                }
+            }
         }
     }
         
