@@ -10,10 +10,19 @@
 int main(int argc, char **argv) {
     int **A, **B, **C;
     int rowsA, colsA, rowsB, colsB;
+    int dimension = 2000;
+    rowsA = dimension;
+    rowsB = dimension;
+    colsA = dimension;
+    colsB = dimension;
     // srand(time(NULL));
 
     // get input data
-    read_matrices_from_file("matrixes.txt", &A, &B, &rowsA, &colsA, &rowsB, &colsB);
+    // read_matrices_from_file("matrixes.txt", &A, &B, &rowsA, &colsA, &rowsB, &colsB);
+    A = allocate_matrix(rowsA, colsA);
+    B = allocate_matrix(rowsB, colsB);
+    generate_matrix(A, rowsA, colsA);
+    generate_matrix(B, rowsB, colsB);
 
     // allocate memory for result data
     C = allocate_matrix(rowsA, colsB);
@@ -21,12 +30,13 @@ int main(int argc, char **argv) {
     // start time measurement
     struct timeval ins__tstart, ins__tstop;
     // without parallelization
-    gettimeofday(&ins__tstart, NULL);
-    sequential_matrix_multiplication(A, B, C, rowsA, colsA, rowsB, colsB);
-    gettimeofday(&ins__tstop, NULL);
-    print_time(&ins__tstart, &ins__tstop, "Without parallelization");
-
-    zeroMatrix(C, rowsA, colsB);
+    // gettimeofday(&ins__tstart, NULL);
+    // sequential_matrix_multiplication(A, B, C, rowsA, colsA, rowsB, colsB);
+    // gettimeofday(&ins__tstop, NULL);
+    // print_time(&ins__tstart, &ins__tstop, "Without parallelization");
+    // print_matrix(C, rowsA, colsB);
+    
+    // zeroMatrix(C, rowsA, colsB);
 
     // with parallelization not optimized
     gettimeofday(&ins__tstart, NULL);
