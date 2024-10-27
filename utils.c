@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <sys/time.h>
+#include <time.h>
 #include "utils.h"
 
 void generate_matrix(int** matrix, int rows, int cols) {
+    srand(time(NULL));
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             matrix[i][j] = rand() % 100;
@@ -110,9 +113,7 @@ void zeroMatrix(int** matrix, int rows, int cols) {
     }
 }
 
-void print_time(struct timeval *start, struct timeval *stop, char* title) {
-
+long get_time(struct timeval *start, struct timeval *stop) {
   long time=1000000*(stop->tv_sec-start->tv_sec)+stop->tv_usec-start->tv_usec;
-  printf("%s: %ld microseconds\n", title, time);
-  return;
+  return time;
 }
