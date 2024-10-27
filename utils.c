@@ -102,9 +102,17 @@ void read_matrices_from_file(const char* filename, int*** A, int*** B, int* rows
     fclose(file);
 }
 
-void print_time(struct timeval *start, struct timeval *stop) {
+void zeroMatrix(int** matrix, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+}
+
+void print_time(struct timeval *start, struct timeval *stop, char* title) {
 
   long time=1000000*(stop->tv_sec-start->tv_sec)+stop->tv_usec-start->tv_usec;
-  printf("Execution time = %ld microseconds\n", time);
+  printf("%s: %ld microseconds\n", title, time);
   return;
 }
