@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    for (int i = 1; i < 10; i++) {
+    for (int i = 0; i < 2; i++) {
         fprintf(result_file, "Matrix dimension: %d\n", dimensions[i]);
         for (int j = 0; j < 2; j++) {
             sprintf(experiment_file_path, "experiment_data/%d.txt", dimensions[i]);

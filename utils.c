@@ -105,6 +105,17 @@ void read_matrices_from_file(const char* filename, int*** A, int*** B, int* rows
     fclose(file);
 }
 
+int compare_matrices(int** parallel_result, int** sequential_result, int rowsA, int colsB) {
+    for (int i = 0; i < rowsA; i++) {
+        for (int j = 0; j < colsB; j++) {
+            if (parallel_result[i][j] != sequential_result[i][j]) {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
 void zeroMatrix(int** matrix, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
