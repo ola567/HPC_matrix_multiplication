@@ -31,7 +31,7 @@ __global__ void matrixMultiplication(int *deviceA, int *deviceB, int *deviceC, i
 int main(int argc, char **argv)
 {
     int BLOCK_SIZE = 16;
-    char experiment_filename[] = "../experiment_data/3.txt";
+    char experiment_filename[] = "../experiment_data/1400.txt";
     int *A, *B, *C;
     int rowsA, colsA, rowsB, colsB;
     float milliseconds = 0;
@@ -74,10 +74,11 @@ int main(int argc, char **argv)
     // Copy result back to host (corrected cudaMemcpy)
     cudaMemcpy(C, deviceC, rowsA * colsB * sizeof(int), cudaMemcpyDeviceToHost);  // Corrected
 
-    // Print result
-    printf("RESULT MATRIX\n");
-    print_matrix(C, rowsA, colsB);
-    printf("\n");
+    // check correctness
+    int *sequentialC;
+    sequentialC = (int *)calloc(rowsA * colsB, sizeof(int));
+    sequential_matrix_multiplication(A, B, sequentialC, rowsA, colsA, colsB);
+    printf("EQUAL: %d", compareArrays(C, sequentialC, rowsA * colsB));
 
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);

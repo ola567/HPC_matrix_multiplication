@@ -42,10 +42,29 @@ void read_matrices_from_file(const char *filename, int **A, int **B, int *rowsA,
 }
 
 void print_matrix(int *matrix, int rows, int cols) {
-    for (int i = 0; i < cols; i++) {
-        for (int j = 0; j < rows; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             printf("%d ", matrix[i * cols + j]);
         }
         printf("\n");
+    }
+}
+
+int compareArrays(int *array1, int *array2, int size) {
+    for (int i = 0; i < size; i++) {
+        if (array1[i] != array2[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void sequential_matrix_multiplication(int *A, int *B, int *sequentialC, int rowsA, int colsA, int colsB) {
+    for (int i = 0; i < rowsA; i++) {            
+        for (int j = 0; j < colsB; j++) {         
+            for (int k = 0; k < colsA; k++) {
+                sequentialC[i * colsB + j] += A[i * colsA + k] * B[k * colsB + j];
+            }
+        } 
     }
 }
