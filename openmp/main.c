@@ -8,7 +8,7 @@
 int main(int argc, char **argv) {
     int **A, **B, **C;
     struct timeval ins__tstart, ins__tstop;
-    int dimensions[1] = {1000};
+    int dimensions[1] = {1400};
     char experiment_file_path[100];
     int rowsA, colsA, rowsB, colsB;
     FILE *result_file = fopen("results.txt", "w");
@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
     for (int i = 0; i < 1; i++) {
         fprintf(result_file, "Matrix dimension: %d\n", dimensions[i]);
-        for (int j = 0; j < 1; j++) {
+        for (int j = 0; j < 10; j++) {
             sprintf(experiment_file_path, "experiment_data/%d.txt", dimensions[i]);
             read_matrices_from_file(experiment_file_path, &A, &B, &rowsA, &colsA, &rowsB, &colsB);
             C = allocate_matrix(rowsA, colsB);

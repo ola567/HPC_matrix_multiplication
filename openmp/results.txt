@@ -1,0 +1,31 @@
+Matrix dimension: 1400
+Sequential: 7147078
+OpenMP no optimized: 656676
+OpenMP optimized: 490363
+Sequential: 7183380
+OpenMP no optimized: 630674
+OpenMP optimized: 481886
+Sequential: 7146722
+OpenMP no optimized: 643723
+OpenMP optimized: 458175
+Sequential: 7225860
+OpenMP no optimized: 634307
+OpenMP optimized: 436089
+Sequential: 7132064
+OpenMP no optimized: 652381
+OpenMP optimized: 505913
+Sequential: 7159257
+OpenMP no optimized: 618430
+OpenMP optimized: 431810
+Sequential: 7143584
+OpenMP no optimized: 607813
+OpenMP optimized: 534502
+Sequential: 7171115
+OpenMP no optimized: 593669
+OpenMP optimized: 476611
+Sequential: 7149496
+OpenMP no optimized: 705276
+OpenMP optimized: 438576
+Sequential: 7118690
+OpenMP no optimized: 627501
+OpenMP optimized: 438989
